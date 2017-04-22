@@ -21,47 +21,51 @@
    <content>
       <BorderPane prefHeight="515.0" prefWidth="647.0">
          <left>
-            <GridPane prefHeight="376.0" prefWidth="211.0" BorderPane.alignment="CENTER">
+            <GridPane prefHeight="471.0" prefWidth="217.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.50870513916016" minWidth="10.0" prefWidth="71.22823333740234" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.52611541748047" minWidth="10.0" prefWidth="128.77176666259766" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="85.30523681640625" minHeight="10.0" prefHeight="85.30523681640625" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="103.69476318359375" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="23.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="31.191482543945312" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="36.22979736328125" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="37.80426025390625" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="48.187255859375" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="58.421295166015625" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="62.072357177734375" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="71.87661743164062" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="71.87661743164062" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="202.0" minHeight="10.0" prefHeight="123.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="120.0" minHeight="0.0" prefHeight="39.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Función">
+                  <Label prefHeight="23.0" prefWidth="100.0" text="Función prueba:" GridPane.columnSpan="2">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cboFuncion" onAction="#onFuncionAction" prefWidth="150.0" GridPane.columnIndex="1" />
-                  <Label text="Población:" GridPane.rowIndex="3">
+                  <ComboBox fx:id="cboFuncion" prefHeight="27.0" prefWidth="122.0" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin></ComboBox>
+                  <Label text="Población:" GridPane.rowIndex="2">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </Label>
-                  <TitledPane animated="false" collapsible="false" prefHeight="65.0" prefWidth="215.0" text="Cromosomas" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                  <TitledPane animated="false" collapsible="false" prefHeight="62.0" prefWidth="217.0" text="Cromosomas" GridPane.columnSpan="2" GridPane.rowIndex="1">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="34.0" prefWidth="100.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="31.0" prefWidth="215.0">
                            <children>
-                              <Label layoutX="5.0" layoutY="12.0" text="Precisión:">
+                              <Label layoutX="8.0" layoutY="10.0" text="Precisión:">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtPrecision" layoutX="76.0" layoutY="9.0" maxHeight="23.0" maxWidth="119.0" prefHeight="23.0" prefWidth="135.0" text="0.001">
+                              <TextField fx:id="txtPrecision" layoutX="82.0" layoutY="6.0" maxHeight="23.0" maxWidth="119.0" prefHeight="23.0" prefWidth="135.0" text="0.001">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
@@ -73,90 +77,128 @@
                         <Font size="12.0" />
                      </font>
                   </TitledPane>
-                  <TextField fx:id="txtPoblacion" maxHeight="23.0" maxWidth="135.0" prefHeight="23.0" prefWidth="100.0" text="100" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextField fx:id="txtPoblacion" maxHeight="23.0" maxWidth="135.0" prefHeight="23.0" prefWidth="100.0" text="100" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txtIteraciones" maxHeight="23.0" maxWidth="135.0" text="100" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <TextField fx:id="txtIteraciones" maxHeight="23.0" maxWidth="135.0" text="100" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txtCruces" maxHeight="23.0" maxWidth="135.0" text="0.6" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <TextField fx:id="txtCruces" maxHeight="23.0" maxWidth="135.0" text="0.6" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txtMutacion" maxHeight="23.0" maxWidth="135.0" text="0.05" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <TextField fx:id="txtMutacion" maxHeight="23.0" maxWidth="135.0" text="0.05" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txtSemilla" accessibleRole="PASSWORD_FIELD" maxHeight="23.0" maxWidth="135.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <TextField fx:id="txtSemilla" accessibleRole="PASSWORD_FIELD" maxHeight="23.0" maxWidth="135.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </TextField>
-                  <Label text="Iteraciones:" GridPane.rowIndex="4">
+                  <Label text="Iteraciones:" GridPane.rowIndex="3">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </Label>
-                  <Label text="\% Cruces:" GridPane.rowIndex="5">
+                  <Label text="\% Cruces:" GridPane.rowIndex="4">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </Label>
-                  <Label text="\% Mutación:" GridPane.rowIndex="6">
+                  <Label text="\% Mutación:" GridPane.rowIndex="5">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </Label>
-                  <Label text="Semilla:" GridPane.rowIndex="7">
+                  <Label text="Semilla:" GridPane.rowIndex="6">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </Label>
-                  <Label text="Cruce:" GridPane.rowIndex="8">
+                  <Label text="Cruce:" GridPane.rowIndex="7">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </Label>
-                  <Label text="Selección:" GridPane.rowIndex="9">
+                  <Label text="Selección:" GridPane.rowIndex="8">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cboCruce" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <ComboBox fx:id="cboSeleccion" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <VBox GridPane.columnSpan="2" GridPane.rowIndex="11">
+                  <ComboBox fx:id="cboCruce" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <ComboBox fx:id="cboMutacion" onAction="#handleMutationSelected" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <VBox prefHeight="95.0" prefWidth="211.0" GridPane.columnSpan="2" GridPane.rowIndex="12">
                      <children>
                         <CheckBox fx:id="chbElitism" mnemonicParsing="false" text="Elitismo">
                            <VBox.margin>
-                              <Insets top="7.0" />
+                              <Insets />
                            </VBox.margin>
                         </CheckBox>
-                        <Button fx:id="btnCrearAG" alignment="CENTER" mnemonicParsing="false" onAction="#onCrearAGButton" text="Lanzar AG" textAlignment="CENTER">
-                           <VBox.margin>
-                              <Insets bottom="-10.0" left="60.0" top="20.0" />
-                           </VBox.margin>
-                        </Button>
                      </children>
                   </VBox>
-                  <Label fx:id="lblN" text="n:" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="55.0" />
-                     </GridPane.margin>
+                  <TitledPane animated="false" collapsible="false" prefHeight="108.0" prefWidth="211.0" text="Inversión Especial" GridPane.columnSpan="2" GridPane.rowIndex="11">
+                    <content>
+                        <GridPane prefHeight="89.0" prefWidth="228.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="35.0" minHeight="0.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="35.0" minHeight="0.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Porcentaje:">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Punto inicial:" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Punto final:" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtPuntoFinInv" maxHeight="23.0" maxWidth="119.0" minHeight="23.0" minWidth="119.0" prefHeight="23.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="txtPuntoIniInv" maxHeight="23.0" maxWidth="119.0" minHeight="23.0" minWidth="119.0" prefHeight="23.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtPorcentajeInv" maxHeight="23.0" maxWidth="119.0" minHeight="23.0" minWidth="119.0" prefHeight="23.0" prefWidth="119.0" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                    </content>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
                      <padding>
-                        <Insets left="25.0" />
+                        <Insets bottom="5.0" />
                      </padding>
+                  </TitledPane>
+                  <Label text="Mutación:" GridPane.rowIndex="9">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
                   </Label>
-                  <TextField fx:id="txtN" maxHeight="23.0" maxWidth="25.0" minHeight="23.0" prefWidth="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <ComboBox fx:id="cboSeleccion" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label fx:id="lblN" prefHeight="17.0" prefWidth="130.0" text="Nº Seleccionados:" GridPane.columnSpan="2" GridPane.rowIndex="10">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtN" maxHeight="23.0" maxWidth="128.0" minHeight="23.0" minWidth="80.0" prefHeight="23.0" prefWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
                      <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </TextField>
+                        <Insets left="25.0" />
+                     </GridPane.margin></TextField>
                </children>
             </GridPane>
          </left>
@@ -169,6 +211,7 @@
          <bottom>
             <FlowPane prefHeight="33.0" prefWidth="806.0" BorderPane.alignment="CENTER">
                <children>
+                  <Button fx:id="btnCrearAG" alignment="CENTER" mnemonicParsing="false" onAction="#onCrearAGButton" text="Lanzar AG" textAlignment="CENTER" />
                   <Label fx:id="lblMejorAbs" text="Mejor absoluto:">
                      <FlowPane.margin>
                         <Insets left="400.0" right="5.0" top="10.0" />

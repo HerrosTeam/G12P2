@@ -16,10 +16,13 @@ import java.util.List;
  */
 public class Function extends Chromosome{
 
-    private int numBuildings;
+    private final int numBuildings;
+    private int[][] distanceData;
+    private int[][] flowData;
+    private String data;
 
-    public Function(double tolerance, int numBuildings, Boolean maximize) {
-        super(0, Integer.MAX_VALUE, tolerance, maximize);
+    public Function(double tolerance, int numBuildings, Boolean maximize, String data) {
+        super(1, numBuildings, tolerance, maximize);
         
         this.numBuildings = numBuildings;
         int geneLength = 1;
@@ -30,15 +33,38 @@ public class Function extends Chromosome{
         for(int i=0; i<numBuildings; i++){
             this.genes.add(i, new IntegerGene(geneLength, xmin, xmax));
         }
+        this.data = data;
+        
+        DistanceFlowData distflow = new DistanceFlowData();
+        
+        switch(data){
+            case "ajuste.dat":
+                this.distanceData = distflow.getDistanceAjuste();
+                this.flowData = distflow.getFlowAjuste();
+                break;
+            case "datos12.dat":
+                this.distanceData = distflow.getDistanceDatos12();
+                this.flowData = distflow.getFlowDatos12();
+                break;
+            case "datos15.dat":
+                this.distanceData = distflow.getDistanceDatos15();
+                this.flowData = distflow.getFlowDatos15();
+                break;
+            case "datos30.dat":
+                this.distanceData = distflow.getDistanceDatos30();
+                this.flowData = distflow.getFlowDatos30();
+                break;
+        }
     } 
     
-    public double function(List<Double> x){
-        double sum=0;
+    public double function(List<Integer> x){
+        int sum=0;
         for(int i=0; i<numBuildings; i++){
-            sum+= Math.sin(x.get(i))*Math.pow(Math.sin(((i+1)+1)* 
-                    Math.pow(x.get(i), 2) / Math.PI) , 20);
+            for(int j=0; j<numBuildings; j++){
+                sum += this.flowData[i][j] * this.distanceData[x.get(i)-1][x.get(j)-1];
+            }
         }
-      return sum * -1;
+      return sum;
     }
     
     @Override
@@ -50,12 +76,12 @@ public class Function extends Chromosome{
     @Override
     public void fenotype() {
         for (int i=0; i<numBuildings; i++){
-            double result = getFenotype(this.genes.get(i));
+            int result = getFenotype(this.genes.get(i));
             this.fenotype.add(i, result);
         }
     }
     
-    private double getFenotype(Gene gene){
+    private int getFenotype(Gene gene){
         IntegerGene a = (IntegerGene) gene;
         return a.getIntegerAllele();
     }
@@ -68,7 +94,7 @@ public class Function extends Chromosome{
 
     @Override
        public Chromosome copy() {
-        Chromosome c=new Function(this.tolerance, this.numBuildings, this.maximize);	
+        Chromosome c=new Function(this.tolerance, this.numBuildings, this.maximize, this.data);	
         c.genes = new LinkedList();
         for(int i=0; i<this.numBuildings; i++){
             c.genes.add(i, this.genes.get(i).copy());
@@ -80,7 +106,6 @@ public class Function extends Chromosome{
         c.setAdaptation(this.adaptation);
         return c;
     }
-
-   
+       
     
 }

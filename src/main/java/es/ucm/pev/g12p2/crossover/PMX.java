@@ -85,25 +85,26 @@ public class PMX extends Crossover {
     
         public static void main(String[] args) {
         //launch(args);
-        Chromosome c = new Function(0.05, 9, true);
+        
+        Chromosome c = new Function(0.05, 9, true, "ajuste.dat");
         c.inicializeChromosome();
         c.evaluate();
         for (int i=0; i<c.getLength(); i++){
             c.getGene(i).setAllele(0, i+1);
         }
         
-        Chromosome c2 = new Function(0.05, 9, true);
+        Chromosome c2 = new Function(0.05, 9, true,"ajuste.dat");
         c2.inicializeChromosome();
         c2.evaluate();
         c2.getGene(0).setAllele(0, 4);
-        c2.getGene(1).setAllele(0, 1);
+        c2.getGene(1).setAllele(0, 5);
         c2.getGene(2).setAllele(0, 2);
-        c2.getGene(3).setAllele(0, 8);
-        c2.getGene(4).setAllele(0, 7);
-        c2.getGene(5).setAllele(0, 6);
-        c2.getGene(6).setAllele(0, 9);
-        c2.getGene(7).setAllele(0, 3);
-        c2.getGene(8).setAllele(0, 5);
+        c2.getGene(3).setAllele(0, 1);
+        c2.getGene(4).setAllele(0, 8);
+        c2.getGene(5).setAllele(0, 7);
+        c2.getGene(6).setAllele(0, 6);
+        c2.getGene(7).setAllele(0, 9);
+        c2.getGene(8).setAllele(0, 3);
         List<Chromosome> list = new LinkedList();
         list.add(c2);
         list.add(c);

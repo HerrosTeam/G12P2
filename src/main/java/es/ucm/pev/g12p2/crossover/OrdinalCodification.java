@@ -47,12 +47,9 @@ public class OrdinalCodification extends Crossover {
         Map<Integer, Integer> par1 = new HashMap();
         Map<Integer, Integer> par2 = new HashMap();
         
-        for(int i=0; i<parent1.getLength(); i++){
-            par1.put((int)parent1.getGene(i).getAllele(0), i);
-            par2.put((int)parent2.getGene(i).getAllele(0), i);
-        }
-
-	int crosspoint = ThreadLocalRandom.current().nextInt(0, parent1.getLength());
+        
+	int crosspoint = 4;
+// = ThreadLocalRandom.current().nextInt(0, parent1.getLength());
         
         for (int i = 0; i < parent1.getLength(); i++) {
             

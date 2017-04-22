@@ -2,12 +2,13 @@ package es.ucm.pev.g12p2;
 
 import es.ucm.pev.g12p2.crossover.Crossover;
 import es.ucm.pev.g12p2.crossover.CrossoverFactory;
+import es.ucm.pev.g12p2.mutation.Mutation;
+import es.ucm.pev.g12p2.mutation.MutationFactory;
 import es.ucm.pev.g12p2.selection.Selection;
 import es.ucm.pev.g12p2.selection.SelectionFactory;
 import java.awt.Dimension;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,8 +16,6 @@ import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -47,6 +46,13 @@ public class FXMLController implements Initializable {
     private TextField txtSeleccion1;
     @FXML
     private TextField txtSeleccion2;
+    @FXML
+    private TextField txtPorcentajeInv;
+    @FXML
+    private TextField txtPuntoIniInv;
+    @FXML
+    private TextField txtPuntoFinInv;
+    
 
     @FXML
     private Label lblMejorAbs;
@@ -59,6 +65,8 @@ public class FXMLController implements Initializable {
     private ComboBox cboCruce;
     @FXML
     private ComboBox cboSeleccion;
+    @FXML
+    private ComboBox cboMutacion;
 
     @FXML
     private TabPane tabPane;
@@ -72,16 +80,26 @@ public class FXMLController implements Initializable {
     private TextField txtN;
 
     @FXML
-    private void onFuncionAction(ActionEvent event) {
-/*
-        String function = cboFuncion.getSelectionModel().getSelectedItem().toString();
-        if (function.equals("Función 4") || function.equals("Función 4 reales")) {
-            this.lblN.setVisible(true);
-            this.txtN.setVisible(true);
-        } else {
-            this.lblN.setVisible(false);
-            this.txtN.setVisible(false);
-        }*/
+    private void handleMutationSelected(ActionEvent event) {
+
+        String function = cboMutacion.getSelectionModel().getSelectedItem().toString();
+        
+        switch (function) {
+            case "Inserción":
+                this.lblN.setText("Nº Inserciones:");
+                this.lblN.setVisible(true);
+                this.txtN.setVisible(true);
+                break;
+            case "Heurística":
+                this.lblN.setText("Nº Seleccionados:");
+                this.lblN.setVisible(true);
+                this.txtN.setVisible(true);
+                break;
+            default:
+                this.lblN.setVisible(false);
+                this.txtN.setVisible(false);
+                break;
+        }
     }
 
     @FXML
@@ -95,20 +113,26 @@ public class FXMLController implements Initializable {
         double prob_cross = Double.parseDouble(txtCruces.getText());
         double prob_mut = Double.parseDouble(txtMutacion.getText());
         double tolerance = Double.parseDouble(txtPrecision.getText());
+        double inversionPercentage = Double.parseDouble(txtPorcentajeInv.getText());
+        int inversionInitialP = Integer.parseInt(txtPuntoIniInv.getText());
+        int inversionFinalP = Integer.parseInt(txtPuntoFinInv.getText());
         int seed = Integer.parseInt(txtSemilla.getText());
-        Selection selection = SelectionFactory.getSelectionAlgorithm(cboSeleccion.getSelectionModel().getSelectedItem().toString());
-        Crossover crossover = CrossoverFactory.getCrossoverAlgorithm(cboCruce.getSelectionModel().getSelectedItem().toString());
         boolean elitism = chbElitism.isSelected();
         int nF4 = 4;
         if (!txtN.getText().isEmpty()) {
             nF4 = Integer.parseInt(txtN.getText());
         }
+        Selection selection = SelectionFactory.getSelectionAlgorithm(cboSeleccion.getSelectionModel().getSelectedItem().toString());
+        Crossover crossover = CrossoverFactory.getCrossoverAlgorithm(cboCruce.getSelectionModel().getSelectedItem().toString());
+        Mutation mutation = MutationFactory.getMutationAlgorithm(cboMutacion.getSelectionModel().getSelectedItem().toString(),
+                prob_mut,populationSize,nF4);
 
         AG newAG = new AG(function, populationSize, max_generations, prob_cross,
-                prob_mut, tolerance, seed, selection, crossover, elitism, nF4);
-
+                prob_mut, tolerance, seed, selection, crossover, elitism, mutation,
+                inversionPercentage, inversionInitialP, inversionFinalP);
+    
         AGView viewInfo = newAG.executeAlgorithm();
-
+        
         /*
         Tab tab = new Tab();
         tab.setText("AG " + count);
@@ -179,7 +203,10 @@ public class FXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         count = 1;
         cboFuncion.getItems().addAll(
-                "Función 1"
+                "ajuste.dat",
+                "datos12.dat",
+                "datos15.dat",
+                "datos30.dat"
         );
         
         cboFuncion.getSelectionModel().selectFirst();
@@ -191,7 +218,10 @@ public class FXMLController implements Initializable {
                 "ERX",
                 "PMX",
                 "OX",
-                "Ordinal Codification"
+                "Codificación Ordinal",
+                "OX Prioridad Orden",
+                "OX Prioridad Posición",
+                "OX Modificado Propio"
         );
         cboCruce.getSelectionModel().selectFirst();
 
@@ -204,8 +234,18 @@ public class FXMLController implements Initializable {
         );
         cboSeleccion.getSelectionModel().selectFirst();
 
-        this.lblN.setVisible(true);
-        this.txtN.setVisible(true);
+        this.lblN.setVisible(false);
+        this.txtN.setVisible(false);
+        
+        cboMutacion.getItems().addAll(
+                "Básica",
+                "Inserción",
+                "Intercambio",
+                "Inversión",
+                "Heurística"
+        );
+        
+        cboMutacion.getSelectionModel().selectFirst();
     }
 
     private ObservableList<XYChart.Series<Double, Double>> getChartData(AGView viewInfo) {

@@ -11,7 +11,6 @@ import es.ucm.pev.g12p2.chromosome.gene.IntegerGene;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -21,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class Chromosome {
     protected List<Gene> genes;
     
-    protected List<Double> fenotype;
+    protected List<Integer> fenotype;
     protected double fitness; //funcion de evaluacion fitness
     protected double score; //puntuacion relativa (aptitud/suma)
     protected double scoreAccumulated; //puntuacion acumulada para seleccion
@@ -34,6 +33,8 @@ public abstract class Chromosome {
     protected double adaptation;
     protected double escalation;
     protected Boolean maximize;
+    
+    
     public Chromosome(int min, int max, double tolerance, Boolean maximize) {
         this.xmin = min;
         this.xmax = max;
@@ -69,7 +70,6 @@ public abstract class Chromosome {
    public abstract void  fenotype();// fenotype =...
 
     public void inicializeChromosome(){
-        //Random randomNumber = new Random();
         Map <Integer, Integer> locations = new HashMap();
         int concreteLocation;
         for(int i=0; i<chromosomeLength; i++){
@@ -80,6 +80,7 @@ public abstract class Chromosome {
             locations.put(i, concreteLocation);
             this.genes.get(i).initializeGene(concreteLocation);
         }
+        
         this.evaluate();
     }
 

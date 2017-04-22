@@ -65,11 +65,17 @@ public class AG {
     private double[] generationBest;
     private double[] absoluteBest;
     
-    public AG(String function, int populationSize, int max_generations,
+    private double inversionPercentage;
+    private int inversionInitialP;
+    private int inversionFinalP;
+    
+    private String data;
+    
+    public AG(String data, int populationSize, int max_generations,
             double prob_cross, double prob_mut, double tolerance, int seed, Selection selection, Crossover crossover,
-            boolean elitism, int nF4) {
+            boolean elitism, Mutation mutation, double inversionPercentage,int inversionInitialP,int inversionFinalP) {
         this.currentGeneration = 0;
-        this.function = function;
+        this.data = data;
         this.populationSize = populationSize;
         this.maxGenerations = max_generations;
         this.probCrossover = prob_cross;
@@ -78,7 +84,7 @@ public class AG {
         this.randomNumber = (seed == 0 ? new Random() : new Random(seed));
         this.selection = selection;
         this.crossover = crossover;
-        this.mutation = new BasicMutation(prob_mut, populationSize);
+        this.mutation = mutation;
         this.graphPoints = new double[4][maxGenerations];
         this.elitism = elitism;
         if (elitism) {
@@ -86,17 +92,36 @@ public class AG {
             this.elite = new Elite(this.elitismPopulation);
         }
         this.evolutionaryPressure = 1.5;
-        this.chromosomeLength = nF4;
+        
+        switch(this.data){
+            case "ajuste.dat":
+                this.chromosomeLength = 5;
+                break;
+            case "datos12.dat":
+                this.chromosomeLength = 12;
+                break;
+            case "datos15.dat":
+                this.chromosomeLength = 15;
+                break;
+            case "datos30.dat":
+                this.chromosomeLength = 30;
+                break;
+        }
+        
         this.eliteChromosomes = new LinkedList<>();
         this.generationAverage = new double[maxGenerations];
         this.generationBest = new double[maxGenerations];
         this.absoluteBest = new double[maxGenerations];
+        this.inversionPercentage = inversionPercentage;
+        this.inversionInitialP = inversionInitialP;
+        this.inversionFinalP = inversionFinalP;
     }
 
     public AGView executeAlgorithm() {
         this.initialize();
         this.evaluate();
         while (currentGeneration != maxGenerations) {
+                    
             if (elitism) {
                 this.eliteChromosomes.addAll(0, this.elite.getElite(population));
             }
@@ -127,10 +152,6 @@ public class AG {
         return viewInfo;
     }
     
-    
-    
-    
-        
 
     private void initialize() {
         this.population = new LinkedList();
@@ -282,14 +303,8 @@ public class AG {
     }
 
     private Chromosome createConcreteChromosome() {
-        switch (this.function) {
-            case "Función 1":
-                this.maximizar = false;
-                return new Function(this.tolerance, this.chromosomeLength, this.maximizar);
-            default:
-                System.err.println("Error");
-                return null;
-        }
+        this.maximizar = false;
+        return new Function(this.tolerance, this.chromosomeLength, this.maximizar, this.data);
     }
 
     public int getGeneration() {
