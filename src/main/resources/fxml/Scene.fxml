@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<TitledPane animated="false" collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="828.0" text="Práctica 1 de PEV 2017                                                                                                                          Daniel Rossetto y Laura Hernando" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ucm.pev.g12p2.FXMLController">
+   <content>
+      <BorderPane prefHeight="515.0" prefWidth="647.0">
+         <left>
+            <GridPane prefHeight="376.0" prefWidth="211.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.50870513916016" minWidth="10.0" prefWidth="71.22823333740234" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.52611541748047" minWidth="10.0" prefWidth="128.77176666259766" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="85.30523681640625" minHeight="10.0" prefHeight="85.30523681640625" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="103.69476318359375" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Función">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cboFuncion" onAction="#onFuncionAction" prefWidth="150.0" GridPane.columnIndex="1" />
+                  <Label text="Población:" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <TitledPane animated="false" collapsible="false" prefHeight="65.0" prefWidth="215.0" text="Cromosomas" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="34.0" prefWidth="100.0">
+                           <children>
+                              <Label layoutX="5.0" layoutY="12.0" text="Precisión:">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtPrecision" layoutX="76.0" layoutY="9.0" maxHeight="23.0" maxWidth="119.0" prefHeight="23.0" prefWidth="135.0" text="0.001">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TitledPane>
+                  <TextField fx:id="txtPoblacion" maxHeight="23.0" maxWidth="135.0" prefHeight="23.0" prefWidth="100.0" text="100" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtIteraciones" maxHeight="23.0" maxWidth="135.0" text="100" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtCruces" maxHeight="23.0" maxWidth="135.0" text="0.6" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtMutacion" maxHeight="23.0" maxWidth="135.0" text="0.05" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtSemilla" accessibleRole="PASSWORD_FIELD" maxHeight="23.0" maxWidth="135.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TextField>
+                  <Label text="Iteraciones:" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="\% Cruces:" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="\% Mutación:" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Semilla:" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Cruce:" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Selección:" GridPane.rowIndex="9">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cboCruce" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <ComboBox fx:id="cboSeleccion" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <VBox GridPane.columnSpan="2" GridPane.rowIndex="11">
+                     <children>
+                        <CheckBox fx:id="chbElitism" mnemonicParsing="false" text="Elitismo">
+                           <VBox.margin>
+                              <Insets top="7.0" />
+                           </VBox.margin>
+                        </CheckBox>
+                        <Button fx:id="btnCrearAG" alignment="CENTER" mnemonicParsing="false" onAction="#onCrearAGButton" text="Lanzar AG" textAlignment="CENTER">
+                           <VBox.margin>
+                              <Insets bottom="-10.0" left="60.0" top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Label fx:id="lblN" text="n:" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="55.0" />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="txtN" maxHeight="23.0" maxWidth="25.0" minHeight="23.0" prefWidth="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </TextField>
+               </children>
+            </GridPane>
+         </left>
+         <center>
+            <TabPane fx:id="tabPane" maxHeight="470.0" maxWidth="595.0" prefHeight="470.0" prefWidth="595.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin></TabPane>
+         </center>
+         <bottom>
+            <FlowPane prefHeight="33.0" prefWidth="806.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="lblMejorAbs" text="Mejor absoluto:">
+                     <FlowPane.margin>
+                        <Insets left="400.0" right="5.0" top="10.0" />
+                     </FlowPane.margin>
+                  </Label>
+                  <TextField fx:id="txtMejorAbs" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="93.0">
+                     <FlowPane.margin>
+                        <Insets top="10.0" />
+                     </FlowPane.margin>
+                  </TextField>
+               </children>
+            </FlowPane>
+         </bottom>
+      </BorderPane>
+   </content>
+</TitledPane>
