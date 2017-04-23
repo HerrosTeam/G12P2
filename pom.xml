@@ -11,8 +11,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>es.ucm.pev.g12p2.MainApp</mainClass>
-        <!-- <mainClass>es.ucm.pev.g12p2.crossover.PMX</mainClass> -->
+        <!--<mainClass>es.ucm.pev.g12p2.MainApp</mainClass>-->
+        <mainClass>es.ucm.pev.g12p2.crossover.PMX</mainClass>
     </properties>
 
     <organization>

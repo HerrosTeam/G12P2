@@ -86,14 +86,14 @@ public class PMX extends Crossover {
         public static void main(String[] args) {
         //launch(args);
         
-        Chromosome c = new Function(0.05, 9, true, "ajuste.dat");
+        Chromosome c = new Function(0.05, 9, true, "datos12.dat");
         c.inicializeChromosome();
         c.evaluate();
         for (int i=0; i<c.getLength(); i++){
             c.getGene(i).setAllele(0, i+1);
         }
         
-        Chromosome c2 = new Function(0.05, 9, true,"ajuste.dat");
+        Chromosome c2 = new Function(0.05, 9, true,"datos12.dat");
         c2.inicializeChromosome();
         c2.evaluate();
         c2.getGene(0).setAllele(0, 4);
@@ -118,7 +118,7 @@ public class PMX extends Crossover {
         System.out.println();
     
         int point = ThreadLocalRandom.current().nextInt(0, 9);
-        Crossover cross = new CX();
+        Crossover cross = new OrdinalCodification();
         
         list = cross.crossover(c, c2, point);
         for(int i=0; i< list.size(); i++){

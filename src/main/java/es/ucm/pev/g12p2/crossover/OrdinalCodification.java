@@ -8,6 +8,7 @@ package es.ucm.pev.g12p2.crossover;
 import es.ucm.pev.g12p2.chromosome.Chromosome;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class OrdinalCodification extends Crossover {
 
+            
     public OrdinalCodification() {
     }
 
@@ -28,67 +30,43 @@ public class OrdinalCodification extends Crossover {
 
         Chromosome child1 = parent1.copy();
         Chromosome child2 = parent2.copy();
-                        
-        List<Integer>l1=new ArrayList<>(); 
-        List<Integer>l2=new ArrayList<>(); 
-	List<Integer>l11=new ArrayList<>(); 
-	List<Integer>l22=new ArrayList<>();
         
+        ArrayList<Integer> list = new ArrayList<>();
+        ArrayList<Integer> list2 = new ArrayList<>();
+       
 	for (int i=1; i<=parent1.getLength(); i++) {
-            l1.add(i+1);
-            l2.add(i+1);
-            l11.add(i+1);
-            l22.add(i+1);
+            list.add(i);
+            list2.add(i);
 	}
+        
+        
+        for (int i=0; i<parent1.getLength(); i++) {
+            int currentValue = (int)parent1.getGene(i).getAllele(0);
+            int pos = list.indexOf(currentValue);
+            child1.getGene(i).setAllele(0,pos+1);
+            list.remove(pos);
+            
+            int currentValue2 = (int)parent2.getGene(i).getAllele(0);
+            int pos2 = list2.indexOf(currentValue2);
+            child2.getGene(i).setAllele(0,pos2+1);
+            list2.remove(pos2);
+	}
+        
+        Chromosome child1cross = child1.copy();
+        Chromosome child2cross = child2.copy();
 
-        int[]p1=new int[parent1.getLength()];
-     	int[]p2=new int[parent1.getLength()];
+        for(int i=crossPoint; i<parent1.getLength(); i++){
+            child1cross.getGene(i).setAllele(0,child2.getGene(i).getAllele(0));
+            child2cross.getGene(i).setAllele(0,child1.getGene(i).getAllele(0));
+        }
         
-        Map<Integer, Integer> par1 = new HashMap();
-        Map<Integer, Integer> par2 = new HashMap();
-        
-        
-	int crosspoint = 4;
-// = ThreadLocalRandom.current().nextInt(0, parent1.getLength());
-        
-        for (int i = 0; i < parent1.getLength(); i++) {
-            
-            int value1 = (int)parent1.getGene(i).getAllele(0);
-            p1[i]=l1.indexOf(value1);
-            l1.remove(value1);
-            
-            int value2 = (int)parent2.getGene(i).getAllele(0);
-            p2[i]=l2.indexOf(value2);
-            l2.remove(value2);
-            
-            if(i>crosspoint){
-                p1[i]=p2[i];
-                p2[i]=p1[i];
-            }
-            
-            int i1=p1[i];
-            int g1=l11.get(i1);
-            l11.remove(i1);
-            
-            //hijo1.inserta(g1, i);
-            child1.getGene(i).setAllele(0, g1);
-            
-            int i2=p2[i];
-            int g2=l22.get(i2);
-            l22.remove(i2);
-            
-            //hijo2.inserta(g2, i);
-            child2.getGene(i).setAllele(0, g2);
-	}
- 
-        child1.evaluate();
-        child2.evaluate();
-        children.add(child1);
-        children.add(child2);
+        child1cross.evaluate();
+        child2cross.evaluate();
+        children.add(child1cross);
+        children.add(child2cross);
 
         return children;
     }
-
 }
 
  
