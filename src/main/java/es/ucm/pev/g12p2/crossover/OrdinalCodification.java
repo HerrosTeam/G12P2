@@ -33,10 +33,14 @@ public class OrdinalCodification extends Crossover {
         
         ArrayList<Integer> list = new ArrayList<>();
         ArrayList<Integer> list2 = new ArrayList<>();
+        ArrayList<Integer> list3 = new ArrayList<>();
+        ArrayList<Integer> list4 = new ArrayList<>();
        
 	for (int i=1; i<=parent1.getLength(); i++) {
             list.add(i);
             list2.add(i);
+            list3.add(i);
+            list4.add(i);
 	}
         
         
@@ -60,10 +64,26 @@ public class OrdinalCodification extends Crossover {
             child2cross.getGene(i).setAllele(0,child1.getGene(i).getAllele(0));
         }
         
-        child1cross.evaluate();
-        child2cross.evaluate();
-        children.add(child1cross);
-        children.add(child2cross);
+        Chromosome finalchild1 = child1cross.copy();
+        Chromosome finalchild2 = child2cross.copy();
+        
+        
+        for (int i=0; i<parent1.getLength(); i++) {
+            int currentValue = (int)child1cross.getGene(i).getAllele(0);
+            int value = list3.get(currentValue-1);
+            finalchild1.getGene(i).setAllele(0,value);
+            list3.remove(currentValue-1);
+            
+            int currentValue2 = (int)child2cross.getGene(i).getAllele(0);
+            int value2 = list4.get(currentValue2-1);
+            finalchild2.getGene(i).setAllele(0,value2);
+            list4.remove(currentValue2-1);
+	}
+        
+        finalchild1.evaluate();
+        finalchild2.evaluate();
+        children.add(finalchild1);
+        children.add(finalchild2);
 
         return children;
     }

@@ -135,14 +135,14 @@ public class PMX extends Crossover {
         Crossover cross = new OrdinalCodification();
         
         list = cross.crossover(c, c2, point);
-        /*for(int i=0; i< list.size(); i++){
+        for(int i=0; i< list.size(); i++){
             System.out.println("Cromosoma: " + i);
             for(int j=0; j<9; j++){
                 System.out.print(list.get(i).getGene(j).getAllele(0)+ ", ");
             }
             System.out.println();
         }
-        System.out.println();*/
+        System.out.println();
     }
     
     
