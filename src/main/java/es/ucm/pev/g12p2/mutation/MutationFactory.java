@@ -15,13 +15,13 @@ public class MutationFactory {
             int numSelIns) {
         
         switch (mutationAlgorithm) {
-            case "Inserción":
+            case "Insercion":
                 return new InsertionMutation(probabilityOfMutation,populationSize, numSelIns);
             case "Intercambio":
                 return new SwapMutation(probabilityOfMutation,populationSize);
-            case "Inversión":
+            case "Inversion":
                 return new InversionMutation(probabilityOfMutation,populationSize);
-            case "Heurística":
+            case "Heuristica":
                 return new HeuristicMutation(probabilityOfMutation,populationSize, numSelIns, false);
             case "Intercambio Multiple":
                 return new MultipleSwapMutation(probabilityOfMutation,populationSize);

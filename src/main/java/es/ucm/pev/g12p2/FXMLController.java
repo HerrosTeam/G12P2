@@ -53,12 +53,24 @@ public class FXMLController implements Initializable {
     @FXML
     private TextField txtPuntoFinInv;
     
-
-    @FXML
-    private Label lblMejorAbs;
     @FXML
     private TextField txtMejorAbs;
-
+    
+    @FXML
+    private TextField txtIndividuo;
+    
+    @FXML
+    private TextField txtPeorAbs;
+    
+    @FXML
+    private TextField txtTotalC;
+    
+    @FXML
+    private TextField txtTotalM;
+    
+    @FXML
+    private TextField txtTotalI;
+     
     @FXML
     private ComboBox cboFuncion;
     @FXML
@@ -85,12 +97,12 @@ public class FXMLController implements Initializable {
         String function = cboMutacion.getSelectionModel().getSelectedItem().toString();
         
         switch (function) {
-            case "Inserción":
+            case "Insercion":
                 this.lblN.setText("Nº Inserciones:");
                 this.lblN.setVisible(true);
                 this.txtN.setVisible(true);
                 break;
-            case "Heurística":
+            case "Heuristica":
                 this.lblN.setText("Nº Seleccionados:");
                 this.lblN.setVisible(true);
                 this.txtN.setVisible(true);
@@ -187,13 +199,19 @@ public class FXMLController implements Initializable {
 
         plot.removeAllPlots();
         plot.addLinePlot("Mejor absoluto", numbers, absBest);
-        plot.addLinePlot("Mejor de la generación", numbers, genBest);
-        plot.addLinePlot("Media de la generación", numbers, genAvg);
+        plot.addLinePlot("Mejor de la generacion", numbers, genBest);
+        plot.addLinePlot("Media de la generacion", numbers, genAvg);
 
         Pane pane = new Pane();
         pane.getChildren().add(swingNode);
         DecimalFormat decim = new DecimalFormat("0.00000");
         txtMejorAbs.setText(decim.format(absBest[max_generations - 1]));
+        txtIndividuo.setText(viewInfo.getBestIndividual());
+        this.txtPeorAbs.setText(decim.format(viewInfo.getAbsoluteWorst()));
+        DecimalFormat noDecim = new DecimalFormat("0");
+        this.txtTotalC.setText(noDecim.format(viewInfo.getNumCrossovers()));
+        this.txtTotalM.setText(noDecim.format(viewInfo.getNumMutations()));
+        this.txtTotalI.setText(noDecim.format(viewInfo.getNumInversions()));
         tab.setContent(pane);
         tabPane.getTabs().add(tab);
         count++;
@@ -225,10 +243,10 @@ public class FXMLController implements Initializable {
 
         cboSeleccion.getItems().addAll(
                 "Ruleta",
-                "Estocástico Universal",
+                "Estocastico Universal",
                 "Truncamiento",
                 "Torneo Determinista",
-                "Torneo Probabilístico"
+                "Torneo Probabilistico"
         );
         cboSeleccion.getSelectionModel().selectFirst();
 
@@ -236,10 +254,10 @@ public class FXMLController implements Initializable {
         this.txtN.setVisible(false);
         
         cboMutacion.getItems().addAll(
-                "Inserción",
+                "Insercion",
                 "Intercambio",
-                "Inversión",
-                "Heurística",
+                "Inversion",
+                "Heuristica",
                 "Intercambio Multiple"
         );
         
@@ -256,11 +274,11 @@ public class FXMLController implements Initializable {
         //List<Double> absoluteBest = viewInfo.getAbsoluteBest();
 
         XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Mejor de la generación");
+        series2.setName("Mejor de la generacion");
         //List<Double> generationBest = viewInfo.getGenerationBest();
 
         XYChart.Series series3 = new XYChart.Series();
-        series3.setName("Media de la generación");
+        series3.setName("Media de la generacion");
         //List<Double> generationAvg = viewInfo.getGenerationAverage();
         /*
         for (int i = 0; i < absoluteBest.size(); i++) {

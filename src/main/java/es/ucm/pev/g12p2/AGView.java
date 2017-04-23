@@ -18,15 +18,21 @@ public class AGView {
     double[] absoluteBest;
     String bestIndividual;
     double absoluteWorst;
+    int numCrossovers;
+    int numMutations;
+    int numInversions;
 
-    public AGView(double[] generationAverage, double[] generationBest, double[] absoluteBest, String absoluteBestIndividual, double absoluteWorst) {
+    public AGView(double[] generationAverage, double[] generationBest, double[] absoluteBest, String absoluteBestIndividual, double absoluteWorst,
+            int numCrossovers, int numMutations, int numInversions) {
         this.generationAverage = generationAverage;
         this.generationBest = generationBest;
         this.absoluteBest = absoluteBest;
         this.bestIndividual = absoluteBestIndividual;
         this.absoluteWorst = absoluteWorst;
+        this.numCrossovers = numCrossovers;
+        this.numMutations = numMutations;
+        this.numInversions = numInversions;
     }
-
 
     public double[] getGenerationAverage() {
         return generationAverage;
@@ -39,6 +45,28 @@ public class AGView {
     public double[] getAbsoluteBest() {
         return absoluteBest;
     }
+
+    public String getBestIndividual() {
+        return bestIndividual;
+    }
+
+    public double getAbsoluteWorst() {
+        return absoluteWorst;
+    }
+
+    public int getNumCrossovers() {
+        return numCrossovers;
+    }
+
+    public int getNumMutations() {
+        return numMutations;
+    }
+
+    public int getNumInversions() {
+        return numInversions;
+    }
+    
+    
 }
 
         

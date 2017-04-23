@@ -171,9 +171,9 @@
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtPuntoFinInv" maxHeight="23.0" maxWidth="119.0" minHeight="23.0" minWidth="119.0" prefHeight="23.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="txtPuntoIniInv" maxHeight="23.0" maxWidth="119.0" minHeight="23.0" minWidth="119.0" prefHeight="23.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="txtPorcentajeInv" maxHeight="23.0" maxWidth="119.0" minHeight="23.0" minWidth="119.0" prefHeight="23.0" prefWidth="119.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="txtPuntoFinInv" maxHeight="23.0" maxWidth="119.0" minHeight="23.0" minWidth="119.0" prefHeight="23.0" prefWidth="119.0" text="3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="txtPuntoIniInv" maxHeight="23.0" maxWidth="119.0" minHeight="23.0" minWidth="119.0" prefHeight="23.0" prefWidth="119.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtPorcentajeInv" maxHeight="23.0" maxWidth="119.0" minHeight="23.0" minWidth="119.0" prefHeight="23.0" prefWidth="119.0" text="0.05" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                     </content>
@@ -209,15 +209,68 @@
                </BorderPane.margin></TabPane>
          </center>
          <bottom>
-            <FlowPane prefHeight="33.0" prefWidth="806.0" BorderPane.alignment="CENTER">
+            <FlowPane fx:id="lblIndividuo" prefHeight="33.0" prefWidth="806.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnCrearAG" alignment="CENTER" mnemonicParsing="false" onAction="#onCrearAGButton" text="Lanzar AG" textAlignment="CENTER" />
-                  <Label fx:id="lblMejorAbs" text="Mejor absoluto:">
+                  <Label text="Mejor Individuo:">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
                      <FlowPane.margin>
-                        <Insets left="400.0" right="5.0" top="10.0" />
+                        <Insets right="2.0" top="10.0" />
+                     </FlowPane.margin>
+                  </Label>
+                  <TextField fx:id="txtIndividuo" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="93.0">
+                     <FlowPane.margin>
+                        <Insets top="10.0" />
+                     </FlowPane.margin>
+                  </TextField>
+                  <Label fx:id="lblMejorAbs" text="Mejor fitness:">
+                     <FlowPane.margin>
+                        <Insets left="2.0" right="2.0" top="10.0" />
                      </FlowPane.margin>
                   </Label>
                   <TextField fx:id="txtMejorAbs" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="93.0">
+                     <FlowPane.margin>
+                        <Insets top="10.0" />
+                     </FlowPane.margin>
+                  </TextField>
+                  <Label fx:id="lblMejorAbs1" text="Peor fitness:">
+                     <FlowPane.margin>
+                        <Insets left="2.0" right="2.0" top="10.0" />
+                     </FlowPane.margin>
+                  </Label>
+                  <TextField fx:id="txtPeorAbs" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="93.0">
+                     <FlowPane.margin>
+                        <Insets top="10.0" />
+                     </FlowPane.margin>
+                  </TextField>
+                  <Label fx:id="lblMejorAbs11" text="C:">
+                     <FlowPane.margin>
+                        <Insets left="2.0" right="2.0" top="10.0" />
+                     </FlowPane.margin>
+                  </Label>
+                  <TextField fx:id="txtTotalC" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="40.0">
+                     <FlowPane.margin>
+                        <Insets top="10.0" />
+                     </FlowPane.margin>
+                  </TextField>
+                  <Label fx:id="lblMejorAbs111" text="M:">
+                     <FlowPane.margin>
+                        <Insets left="2.0" right="2.0" top="10.0" />
+                     </FlowPane.margin>
+                  </Label>
+                  <TextField fx:id="txtTotalM" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="40.0">
+                     <FlowPane.margin>
+                        <Insets top="10.0" />
+                     </FlowPane.margin>
+                  </TextField>
+                  <Label fx:id="lblMejorAbs1111" text="I:">
+                     <FlowPane.margin>
+                        <Insets left="2.0" right="1.0" top="10.0" />
+                     </FlowPane.margin>
+                  </Label>
+                  <TextField fx:id="txtTotalI" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="40.0">
                      <FlowPane.margin>
                         <Insets top="10.0" />
                      </FlowPane.margin>

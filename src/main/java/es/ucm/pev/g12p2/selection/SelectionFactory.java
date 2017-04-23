@@ -15,13 +15,13 @@ public class SelectionFactory {
         switch (selectionAlgorithm) {
             case "Ruleta":
                 return new Roulette();
-            case "Estocástico Universal":
+            case "Estocastico Universal":
                 return new StochasticUniversal();
             case "Truncamiento":
                 return new Truncation();
             case "Torneo Determinista":
                 return new DeterministicTournament();
-            case "Torneo Probabilístico":
+            case "Torneo Probabilistico":
                 return new ProbabilisticTournament();
             default:
                 return new Roulette();
