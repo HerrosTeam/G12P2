@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 /**
@@ -73,6 +74,10 @@ public class AG {
     private int inversionInitialP;
     private int inversionFinalP;
     
+    private int numInversions;
+    private int numCrossovers;
+    private int numMutations;
+    
     private String data;
     
     public AG(String data, int populationSize, int max_generations,
@@ -120,6 +125,9 @@ public class AG {
         this.inversionInitialP = inversionInitialP;
         this.inversionFinalP = inversionFinalP;
         this.specialInversion = new InversionMutation(this.inversionPercentage, this.inversionInitialP, this.inversionFinalP);
+        this.numInversions=0;
+        this.numCrossovers=0;
+        this.numMutations=0;
     }
 
     public AGView executeAlgorithm() {
@@ -154,9 +162,9 @@ public class AG {
             
             currentGeneration++;
         }
-        
+        this.numMutations = this.mutation.getNumberOfMutations();
         AGView viewInfo = new AGView(this.generationAverage, this.generationBest, this.absoluteBest,
-            this.getAbsoluteBestIndividual(), this.getAbsoluteWorst());
+            this.getAbsoluteBestIndividual(), this.getAbsoluteWorst(), this.numCrossovers, this.numMutations, this.numInversions);
         
         return viewInfo;
     }
@@ -297,15 +305,19 @@ public class AG {
     
     private void specialInversion(){
         for(int i=0; i<this.populationSize; i++){
-            Chromosome cInversed = this.specialInversion.specialInverse(this.population.get(i));
-            if (maximizar) {
-                if (cInversed.getFitness() > this.population.get(i).getFitness()) {
-                    this.population.set(i, cInversed.copy());
+            double probability=ThreadLocalRandom.current().nextDouble(0, 1);
+            if(probability<this.inversionPercentage){
+                Chromosome cInversed = this.specialInversion.specialInverse(this.population.get(i));
+                if (maximizar) {
+                    if (cInversed.getFitness() > this.population.get(i).getFitness()) {
+                        this.population.set(i, cInversed.copy());
+                    }
+                } else if (!maximizar) {
+                    if (cInversed.getFitness() < this.population.get(i).getFitness()) {
+                        this.population.set(i, cInversed.copy());
+                    }
                 }
-            } else if (!maximizar) {
-                if (cInversed.getFitness() < this.population.get(i).getFitness()) {
-                    this.population.set(i, cInversed.copy());
-                }
+                this.numInversions++;
             }
         }
     }
@@ -336,7 +348,7 @@ public class AG {
             Chromosome parent2 = population.get(sel_cross[j + 1]).copy();
             
             List<Chromosome> children = this.crossover.crossover(parent1, parent2, cross_point);
-
+            this.numCrossovers++;
             population.set(sel_cross[j], children.get(0).copy());
             population.set(sel_cross[j + 1], children.get(1).copy());
         }
@@ -377,6 +389,18 @@ public class AG {
     
     public double getGenerationAvg(){
         return this.average;
+    }
+    
+    public int getNumInversions() {
+        return numInversions;
+    }
+
+    public int getNumCrossovers() {
+        return numCrossovers;
+    }
+
+    public int getNumMutations() {
+        return numMutations;
     }
     
 }

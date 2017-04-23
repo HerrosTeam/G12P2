@@ -15,11 +15,17 @@ import java.util.List;
 public abstract class Mutation {
     protected double probabilityOfMutation;
     protected int populationSize;
+    protected int numberOfMutations;
     
     public Mutation(double probabilityOfMutation, int populationSize){
         this.probabilityOfMutation = probabilityOfMutation;
         this.populationSize = populationSize;
+        this.numberOfMutations=0;
     }
     
     public abstract List<Chromosome> mutate(List<Chromosome> population);
+    
+    public int getNumberOfMutations(){
+        return numberOfMutations;
+    }
 }

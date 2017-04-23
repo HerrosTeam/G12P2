@@ -37,6 +37,7 @@ public class InsertionMutation extends Mutation{
             if(mutated){
                 population.get(i).fenotype();
                 population.get(i).evaluate();
+                this.numberOfMutations++;
             }
         }
         return population;
