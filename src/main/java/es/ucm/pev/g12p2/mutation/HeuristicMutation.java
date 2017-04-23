@@ -55,7 +55,7 @@ public class HeuristicMutation extends Mutation{
         Chromosome bestChromosome = c.copy();
         for(int i=0; i <this.numSelected; i++){
             pos = ThreadLocalRandom.current().nextInt(0, c.getLength());
-            while (positionsSelected.containsKey(pos)){
+            while (positionsSelected.containsValue(pos)){
                 pos = ThreadLocalRandom.current().nextInt(0, c.getLength());
             }
             positionsSelected.put(i, pos);

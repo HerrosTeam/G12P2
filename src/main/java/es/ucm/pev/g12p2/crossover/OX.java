@@ -39,15 +39,15 @@ public class OX extends Crossover {
             crossPoint = crossPoint2;
             crossPoint2 = aux;
         }
-        Map<Integer, Boolean> usedValuesChild1 = new HashMap(); 
-        Map<Integer, Boolean> usedValuesChild2 = new HashMap();
+        Map<Integer, Integer> usedValuesChild1 = new HashMap(); 
+        Map<Integer, Integer> usedValuesChild2 = new HashMap();
         //intercambiamos los alelos pertenecientes a [crossPoint,  crosPoint2]
         for(int i=crossPoint; i<=crossPoint2; i++){
             child1.getGene(i).setAllele(0,parent2.getGene(i).getAllele(0));
-            usedValuesChild1.put((int)child1.getGene(i).getAllele(0), true);
+            usedValuesChild1.put((int)child1.getGene(i).getAllele(0), i);
             
             child2.getGene(i).setAllele(0,parent1.getGene(i).getAllele(0));
-            usedValuesChild2.put((int)child2.getGene(i).getAllele(0), true);
+            usedValuesChild2.put((int)child2.getGene(i).getAllele(0), i);
         }
         
         child1 = doOX(child1, child2, crossPoint, crossPoint2, usedValuesChild1);
@@ -62,52 +62,44 @@ public class OX extends Crossover {
     }
     
     public Chromosome doOX(Chromosome child1, Chromosome child2, int crossPoint, int crossPoint2, Map usedValuesChild1){
-        int positionsSavedChild1=crossPoint2-crossPoint+1;
-        int currentI=0;
-        for(int i=crossPoint2+1; i!=crossPoint; i++){
+        
+        //colocamos de manera correcta los alelos no repetidos
+        int currentI=crossPoint2+1;
+        for(int i=crossPoint2+1; i!=crossPoint && currentI != crossPoint; i++){
             i=i%child1.getLength();
-            if(crossPoint2+1 == i){
-                currentI=i;
-            }
-            boolean endLoop = false;
-            for(int j=crossPoint; j<=crossPoint2 && !endLoop; j++)
+            currentI = currentI % child1.getLength();
+            if(usedValuesChild1.containsKey((int)child1.getGene(i).getAllele(0))
+                    && currentI != crossPoint)
             {
-                currentI = currentI % child1.getLength();
-                if((child1.getGene(i).getAllele(0) == child1.getGene(j).getAllele(0) 
-                        || usedValuesChild1.containsKey((int)child1.getGene(currentI).getAllele(0)))
-                        && currentI != crossPoint)
+                while(usedValuesChild1.containsKey((int)child1.getGene(currentI).getAllele(0))
+                    && currentI != crossPoint)
                 {
-                    while((child1.getGene(currentI).getAllele(0) == child1.getGene(j).getAllele(0) 
-                            || usedValuesChild1.containsKey((int)child1.getGene(currentI).getAllele(0)))
-                            && currentI != crossPoint)
-                    {
-                        currentI++;
-                        currentI = currentI % child1.getLength();
-                    }
-                    if(!usedValuesChild1.containsKey((int)child1.getGene(currentI).getAllele(0))){
-                        child1.getGene(i).setAllele(0, child1.getGene(currentI).getAllele(0));
-                        usedValuesChild1.put((int)child1.getGene(i).getAllele(0), true);
-                        endLoop = true;
-                        positionsSavedChild1++;
-                    }
-                }else if(!usedValuesChild1.containsKey((int)child1.getGene(currentI).getAllele(0))){
-                    usedValuesChild1.put((int)child1.getGene(i).getAllele(0), true);
-                    endLoop = true;
-                    positionsSavedChild1++;
+                    currentI++;
+                    currentI = currentI % child1.getLength();
                 }
+                if(!usedValuesChild1.containsKey((int)child1.getGene(currentI).getAllele(0))){
+                    child1.getGene(i).setAllele(0, child1.getGene(currentI).getAllele(0));
+                    usedValuesChild1.put((int)child1.getGene(i).getAllele(0), currentI);
+                }
+            }else if(!usedValuesChild1.containsKey((int)child1.getGene(i).getAllele(0))){
+                usedValuesChild1.put((int)child1.getGene(i).getAllele(0), i);
             }
         }
 
-        for(int i=crossPoint; i<=crossPoint2 && positionsSavedChild1 != child1.getLength(); i++){
-            
+        //colocamos los restantes del otro
+        int restantes = child1.getLength() - usedValuesChild1.size();
+        
+        //colocamos el index en el punto donde comienzan los alelos erroneos del cromosoma
+        currentI = crossPoint-restantes;
+        if(currentI<0){
+            currentI = child1.getLength()+ currentI;
+        }
+        for(int i=crossPoint; i<=crossPoint2 && usedValuesChild1.size() != child1.getLength(); i++){
             if(!usedValuesChild1.containsKey((int)child2.getGene(i).getAllele(0))){
-                int correctPosition = crossPoint - child1.getLength() + positionsSavedChild1;
-                if(correctPosition<0){
-                    correctPosition = child1.getLength()+ correctPosition;
-                }
-                child1.getGene(correctPosition).setAllele(0, child2.getGene(i).getAllele(0));
-                usedValuesChild1.put((int)child1.getGene(correctPosition).getAllele(0), true);
-                positionsSavedChild1++;
+                child1.getGene(currentI).setAllele(0, child2.getGene(i).getAllele(0));
+                usedValuesChild1.put((int)child1.getGene(currentI).getAllele(0), currentI);
+                currentI++;
+                currentI = currentI % child1.getLength();
             }
         }
         return child1.copy();

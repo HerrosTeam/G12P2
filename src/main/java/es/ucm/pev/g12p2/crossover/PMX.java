@@ -7,8 +7,11 @@ package es.ucm.pev.g12p2.crossover;
 
 import es.ucm.pev.g12p2.chromosome.Chromosome;
 import es.ucm.pev.g12p2.chromosome.Function;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -46,48 +49,59 @@ public class PMX extends Crossover {
             crossPoint = crossPoint2;
             crossPoint2 = aux;
         }
-       
+        
+        Map<Integer, Integer> selectedValuesChild1 = new HashMap();
+        Map<Integer, Integer> selectedValuesChild2 = new HashMap();
+        
         for(int i=crossPoint; i<=crossPoint2; i++){
             child1.getGene(i).setAllele(0,parent2.getGene(i).getAllele(0));
+            selectedValuesChild1.put((int)child1.getGene(i).getAllele(0), i);
             child2.getGene(i).setAllele(0,parent1.getGene(i).getAllele(0));
+            selectedValuesChild2.put((int)child2.getGene(i).getAllele(0), i);
         }
         
         //recorremos cada hijo y si tiene algun alelo repetido se intercambia con el del otro padre
+        List<Integer> badPositionsChild1 = new ArrayList();
+        List<Integer> badPositionsChild2 = new LinkedList();
         for(int i=0; i<crossPoint; i++){
-            for(int j=crossPoint; j<=crossPoint2; j++)
-            {
-                if(child1.getGene(i).getAllele(0) == child1.getGene(j).getAllele(0)
-                        || child2.getGene(i).getAllele(0) == child2.getGene(j).getAllele(0))
-                {
-                    child1.getGene(i).setAllele(0,parent2.getGene(i).getAllele(0));
-                    child2.getGene(i).setAllele(0,parent1.getGene(i).getAllele(0));
-                }
+            if(!selectedValuesChild1.containsKey((int)child1.getGene(i).getAllele(0))){
+                selectedValuesChild1.put((int)child1.getGene(i).getAllele(0), i);
+            }
+            else{
+                badPositionsChild1.add(i);
+            }
+            if(!selectedValuesChild2.containsKey((int)child2.getGene(i).getAllele(0))){
+                selectedValuesChild2.put((int)child2.getGene(i).getAllele(0), i);
+            }
+            else{
+                badPositionsChild2.add(i);
             }
         }
+     
         
         for(int i=crossPoint2+1; i<parent1.getLength(); i++){
-            for(int j=crossPoint; j<=crossPoint2; j++)
-            {
-                if(child1.getGene(i).getAllele(0) == child1.getGene(j).getAllele(0)
-                         || child2.getGene(i).getAllele(0) == child2.getGene(j).getAllele(0))
-                {
-                    child1.getGene(i).setAllele(0,parent2.getGene(i).getAllele(0));
-                    child2.getGene(i).setAllele(0,parent1.getGene(i).getAllele(0));
-                }
+            if(!selectedValuesChild1.containsKey((int)child1.getGene(i).getAllele(0))){
+                selectedValuesChild1.put((int)child1.getGene(i).getAllele(0), i);
+            }
+            else{
+                badPositionsChild1.add(i);
+            }
+            if(!selectedValuesChild2.containsKey((int)child2.getGene(i).getAllele(0))){
+                selectedValuesChild2.put((int)child2.getGene(i).getAllele(0), i);
+            }
+            else{
+                badPositionsChild2.add(i);
             }
         }
-        child1.evaluate();
-        child2.evaluate();
         
-     /*   System.out.println("hijo 1:");
-        for(int i=0; i< parent1.getLength(); i++){
-            System.out.println(child1.getGene(i).getAllele(0));
+        //intercambiamos pares repetidos
+        for(int i=0; i<badPositionsChild1.size(); i++){
+            child1.getGene(badPositionsChild1.get(i)).setAllele(0,parent2.getGene(badPositionsChild2.get(i)).getAllele(0));
+            child2.getGene(badPositionsChild2.get(i)).setAllele(0,parent1.getGene(badPositionsChild1.get(i)).getAllele(0));
         }
         
-        System.out.println("hijo2 2:");
-        for(int i=0; i< parent1.getLength(); i++){
-            System.out.println(child2.getGene(i).getAllele(0));
-        }*/
+        child1.evaluate();
+        child2.evaluate();
         
         children.add(child1);
         children.add(child2);
