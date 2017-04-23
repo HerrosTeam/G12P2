@@ -202,13 +202,12 @@ public class FXMLController implements Initializable {
         plot.addLinePlot("Mejor de la generacion", numbers, genBest);
         plot.addLinePlot("Media de la generacion", numbers, genAvg);
 
+         DecimalFormat noDecim = new DecimalFormat("0");
         Pane pane = new Pane();
         pane.getChildren().add(swingNode);
-        DecimalFormat decim = new DecimalFormat("0.00000");
-        txtMejorAbs.setText(decim.format(absBest[max_generations - 1]));
+        txtMejorAbs.setText(noDecim.format(absBest[max_generations - 1]));
         txtIndividuo.setText(viewInfo.getBestIndividual());
-        this.txtPeorAbs.setText(decim.format(viewInfo.getAbsoluteWorst()));
-        DecimalFormat noDecim = new DecimalFormat("0");
+        this.txtPeorAbs.setText(noDecim.format(viewInfo.getAbsoluteWorst()));
         this.txtTotalC.setText(noDecim.format(viewInfo.getNumCrossovers()));
         this.txtTotalM.setText(noDecim.format(viewInfo.getNumMutations()));
         this.txtTotalI.setText(noDecim.format(viewInfo.getNumInversions()));

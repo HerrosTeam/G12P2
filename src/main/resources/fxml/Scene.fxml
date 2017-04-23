@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TitledPane animated="false" collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="828.0" text="Práctica 1 de PEV 2017                                                                                                                          Daniel Rossetto y Laura Hernando" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ucm.pev.g12p2.FXMLController">
+<TitledPane animated="false" collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="890.0" text="Práctica 2 de PEV 2017                                                                                                                          Daniel Rossetto y Laura Hernando" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ucm.pev.g12p2.FXMLController">
    <content>
       <BorderPane prefHeight="515.0" prefWidth="647.0">
          <left>
@@ -203,7 +203,7 @@
             </GridPane>
          </left>
          <center>
-            <TabPane fx:id="tabPane" maxHeight="470.0" maxWidth="595.0" prefHeight="470.0" prefWidth="595.0" BorderPane.alignment="CENTER">
+            <TabPane fx:id="tabPane" maxHeight="535.0" maxWidth="644.0" prefHeight="535.0" prefWidth="644.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets />
                </BorderPane.margin></TabPane>
@@ -250,7 +250,7 @@
                         <Insets left="2.0" right="2.0" top="10.0" />
                      </FlowPane.margin>
                   </Label>
-                  <TextField fx:id="txtTotalC" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="40.0">
+                  <TextField fx:id="txtTotalC" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="60.0">
                      <FlowPane.margin>
                         <Insets top="10.0" />
                      </FlowPane.margin>
@@ -260,7 +260,7 @@
                         <Insets left="2.0" right="2.0" top="10.0" />
                      </FlowPane.margin>
                   </Label>
-                  <TextField fx:id="txtTotalM" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="40.0">
+                  <TextField fx:id="txtTotalM" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="60.0">
                      <FlowPane.margin>
                         <Insets top="10.0" />
                      </FlowPane.margin>
@@ -270,7 +270,7 @@
                         <Insets left="2.0" right="1.0" top="10.0" />
                      </FlowPane.margin>
                   </Label>
-                  <TextField fx:id="txtTotalI" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="40.0">
+                  <TextField fx:id="txtTotalI" editable="false" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="60.0">
                      <FlowPane.margin>
                         <Insets top="10.0" />
                      </FlowPane.margin>

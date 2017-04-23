@@ -398,6 +398,7 @@ public class AG {
         StringBuilder individual = new StringBuilder();
         this.bestChromosome.getGenes().stream().forEach((g) -> {
             individual.append(g.getAllele(0).toString());
+            individual.append(",");
         });
         return individual.toString();
     }
