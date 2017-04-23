@@ -26,6 +26,15 @@ public class PMX extends Crossover {
 
         Chromosome child1 = parent1.copy();
         Chromosome child2 = parent2.copy();
+       /* System.out.println("Padre 1:");
+        for(int i=0; i< parent1.getLength(); i++){
+            System.out.println(parent1.getGene(i).getAllele(0));
+        }
+        
+        System.out.println("Padre 2:");
+        for(int i=0; i< parent1.getLength(); i++){
+            System.out.println(parent2.getGene(i).getAllele(0));
+        }*/
         int crossPoint2 = ThreadLocalRandom.current().nextInt(0, parent1.getLength());
         
         while (crossPoint == crossPoint2){
@@ -47,34 +56,39 @@ public class PMX extends Crossover {
         for(int i=0; i<crossPoint; i++){
             for(int j=crossPoint; j<=crossPoint2; j++)
             {
-                if(child1.getGene(i).getAllele(0) == child1.getGene(j).getAllele(0))
+                if(child1.getGene(i).getAllele(0) == child1.getGene(j).getAllele(0)
+                        || child2.getGene(i).getAllele(0) == child2.getGene(j).getAllele(0))
                 {
-                    child1.getGene(i).setAllele(0,child2.getGene(j).getAllele(0));
-                }
-                if(child2.getGene(i).getAllele(0) == child2.getGene(j).getAllele(0))
-                {
-                    child2.getGene(i).setAllele(0,child1.getGene(j).getAllele(0));
+                    child1.getGene(i).setAllele(0,parent2.getGene(i).getAllele(0));
+                    child2.getGene(i).setAllele(0,parent1.getGene(i).getAllele(0));
                 }
             }
         }
         
-        for(int i=crossPoint2+1; i<parent1.getGenes().size(); i++){
+        for(int i=crossPoint2+1; i<parent1.getLength(); i++){
             for(int j=crossPoint; j<=crossPoint2; j++)
             {
-                if(child1.getGene(i).getAllele(0) == child1.getGene(j).getAllele(0))
+                if(child1.getGene(i).getAllele(0) == child1.getGene(j).getAllele(0)
+                         || child2.getGene(i).getAllele(0) == child2.getGene(j).getAllele(0))
                 {
-                    child1.getGene(i).setAllele(0, child2.getGene(j).getAllele(0));
-                }
-                
-                if(child2.getGene(i).getAllele(0) == child2.getGene(j).getAllele(0))
-                {
-                    child2.getGene(i).setAllele(0,child1.getGene(j).getAllele(0));
+                    child1.getGene(i).setAllele(0,parent2.getGene(i).getAllele(0));
+                    child2.getGene(i).setAllele(0,parent1.getGene(i).getAllele(0));
                 }
             }
         }
-        
         child1.evaluate();
         child2.evaluate();
+        
+     /*   System.out.println("hijo 1:");
+        for(int i=0; i< parent1.getLength(); i++){
+            System.out.println(child1.getGene(i).getAllele(0));
+        }
+        
+        System.out.println("hijo2 2:");
+        for(int i=0; i< parent1.getLength(); i++){
+            System.out.println(child2.getGene(i).getAllele(0));
+        }*/
+        
         children.add(child1);
         children.add(child2);
 
@@ -121,14 +135,14 @@ public class PMX extends Crossover {
         Crossover cross = new OrdinalCodification();
         
         list = cross.crossover(c, c2, point);
-        for(int i=0; i< list.size(); i++){
+        /*for(int i=0; i< list.size(); i++){
             System.out.println("Cromosoma: " + i);
             for(int j=0; j<9; j++){
                 System.out.print(list.get(i).getGene(j).getAllele(0)+ ", ");
             }
             System.out.println();
         }
-        System.out.println();
+        System.out.println();*/
     }
     
     

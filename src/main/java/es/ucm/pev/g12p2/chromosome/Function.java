@@ -62,7 +62,7 @@ public class Function extends Chromosome{
         
         for(int i=0; i<numBuildings; i++){
             for(int j=0; j<numBuildings; j++){
-                sum += this.flowData[i][j] * this.distanceData[x.get(i)][x.get(j)];
+                sum += this.flowData[i][j] * this.distanceData[x.get(i)-1][x.get(j)-1];
             }
         }
       return sum;
@@ -72,6 +72,12 @@ public class Function extends Chromosome{
     public void evaluate() { 
         fenotype();
         this.fitness = function(this.fenotype); 
+        if(this.fitness < 50){
+            for(int i=0; i< this.getLength(); i++){
+                System.out.println(this.getGene(i).getAllele(0));
+            }
+            System.out.println();
+        }
     }
 
     @Override

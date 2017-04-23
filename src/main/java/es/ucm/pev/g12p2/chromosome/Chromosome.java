@@ -73,9 +73,9 @@ public abstract class Chromosome {
         Map <Integer, Integer> locations = new HashMap();
         int concreteLocation;
         for(int i=0; i<chromosomeLength; i++){
-            concreteLocation = ThreadLocalRandom.current().nextInt(0, this.chromosomeLength);
+            concreteLocation = ThreadLocalRandom.current().nextInt(0, this.chromosomeLength)+1;
             while(locations.containsValue(concreteLocation)) {
-                concreteLocation = ThreadLocalRandom.current().nextInt(0, this.chromosomeLength);
+                concreteLocation = ThreadLocalRandom.current().nextInt(0, this.chromosomeLength)+1;
             }
             locations.put(i, concreteLocation);
             this.genes.get(i).initializeGene(concreteLocation);

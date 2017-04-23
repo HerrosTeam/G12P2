@@ -118,9 +118,14 @@ public class AG {
 
     public AGView executeAlgorithm() {
         this.initialize();
+
         this.evaluate();
+
         while (currentGeneration != maxGenerations) {
-                    
+           
+            System.out.println("Generacion:"+currentGeneration );
+
+           
             if (elitism) {
                 this.eliteChromosomes.addAll(0, this.elite.getElite(population));
             }
