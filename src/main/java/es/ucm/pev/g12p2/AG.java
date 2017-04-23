@@ -172,12 +172,31 @@ public class AG {
 
     private void initialize() {
         this.population = new LinkedList();
+        
+        Map<Integer, List<? extends Gene>> usedChromosomes = new HashMap();
+        for(int i=0; i<this.populationSize; i++){
+            Chromosome c = createConcreteChromosome();
+            c.inicializeChromosome(this.randomNumber);
+            if(usedChromosomes.containsKey(c.getFitness())){
+                if(c.getGenes().equals(usedChromosomes.containsValue(c.getFitness()))){
+                    c.inicializeChromosome(this.randomNumber);
+                    usedChromosomes.put((int)c.getFitness(), c.getGenes());
+                }
+            }
+            else{
+                usedChromosomes.put((int)c.getFitness(), c.getGenes());
+            }
+            population.add(c.copy());    
+        }
+        
+        /*
         int chromosomePermutations=1;
         List<Integer> basicAllelesForm = new ArrayList();
         for(int i=1; i<=this.chromosomeLength; i++){
             basicAllelesForm.add(i);
             chromosomePermutations*=i;
         }
+        
         List<List<Integer>> allPermutations = getAllPermutations(basicAllelesForm);
         int repeatedChromosomes = this.populationSize / chromosomePermutations + 1;
         
@@ -189,7 +208,7 @@ public class AG {
             for(int j=0; j<repeatedChromosomes && i+j*chromosomePermutations <this.populationSize; j++){
                 population.add(c.copy());
             }
-        }
+        }*/
 		
         if (elitism) {
             this.elite.initializeMax(this.maximizar);

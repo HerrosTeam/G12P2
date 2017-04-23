@@ -29,15 +29,7 @@ public class PMX extends Crossover {
 
         Chromosome child1 = parent1.copy();
         Chromosome child2 = parent2.copy();
-       /* System.out.println("Padre 1:");
-        for(int i=0; i< parent1.getLength(); i++){
-            System.out.println(parent1.getGene(i).getAllele(0));
-        }
-        
-        System.out.println("Padre 2:");
-        for(int i=0; i< parent1.getLength(); i++){
-            System.out.println(parent2.getGene(i).getAllele(0));
-        }*/
+
         int crossPoint2 = ThreadLocalRandom.current().nextInt(0, parent1.getLength());
         
         while (crossPoint == crossPoint2){
@@ -111,7 +103,7 @@ public class PMX extends Crossover {
 
     
     
-        public static void main(String[] args) {
+/*        public static void main(String[] args) {
         //launch(args);
         
         Chromosome c = new Function(0.05, 9, true, "datos12.dat");
@@ -157,7 +149,7 @@ public class PMX extends Crossover {
             System.out.println();
         }
         System.out.println();
-    }
+    }*/
     
     
 }

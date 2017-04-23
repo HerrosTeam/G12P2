@@ -11,6 +11,7 @@ import es.ucm.pev.g12p2.chromosome.gene.IntegerGene;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -69,13 +70,13 @@ public abstract class Chromosome {
    
    public abstract void  fenotype();// fenotype =...
 
-    public void inicializeChromosome(){
+    public void inicializeChromosome(Random randonNumber){
         Map <Integer, Integer> locations = new HashMap();
         int concreteLocation;
         for(int i=0; i<chromosomeLength; i++){
-            concreteLocation = ThreadLocalRandom.current().nextInt(0, this.chromosomeLength)+1;
+            concreteLocation = randonNumber.nextInt(this.chromosomeLength)+1;
             while(locations.containsValue(concreteLocation)) {
-                concreteLocation = ThreadLocalRandom.current().nextInt(0, this.chromosomeLength)+1;
+                concreteLocation = randonNumber.nextInt(this.chromosomeLength)+1;
             }
             locations.put(i, concreteLocation);
             this.genes.get(i).initializeGene(concreteLocation);
