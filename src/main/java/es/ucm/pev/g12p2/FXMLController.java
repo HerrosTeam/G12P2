@@ -212,15 +212,13 @@ public class FXMLController implements Initializable {
         cboFuncion.getSelectionModel().selectFirst();
 
         cboCruce.getItems().addAll(
-                "Monopunto",
-                "Multipunto",
+                "PMX",
                 "CX",
                 "ERX",
-                "PMX",
                 "OX",
-                "Codificación Ordinal",
+                "Codificacion Ordinal",
                 "OX Prioridad Orden",
-                "OX Prioridad Posición",
+                "OX Prioridad Posicion",
                 "OX Modificado Propio"
         );
         cboCruce.getSelectionModel().selectFirst();
@@ -238,11 +236,11 @@ public class FXMLController implements Initializable {
         this.txtN.setVisible(false);
         
         cboMutacion.getItems().addAll(
-                "Básica",
                 "Inserción",
                 "Intercambio",
                 "Inversión",
-                "Heurística"
+                "Heurística",
+                "Intercambio Multiple"
         );
         
         cboMutacion.getSelectionModel().selectFirst();

@@ -9,7 +9,6 @@ import es.ucm.pev.g12p2.chromosome.Chromosome;
 import es.ucm.pev.g12p2.chromosome.Function;
 import es.ucm.pev.g12p2.crossover.Crossover;
 import es.ucm.pev.g12p2.elite.Elite;
-import es.ucm.pev.g12p2.mutation.BasicMutation;
 import es.ucm.pev.g12p2.mutation.Mutation;
 import es.ucm.pev.g12p2.selection.Selection;
 import java.util.HashMap;
@@ -164,20 +163,34 @@ public class AG {
         for (int i = 0; i < this.populationSize; i++) {
             Chromosome c = createConcreteChromosome();
             c.inicializeChromosome();
+            population.add(c.copy());
+        }
+        
+       /* for (int i = 0; i < chromosomePermutations && population.size() < this.populationSize; i++) {
+            Chromosome c = createConcreteChromosome();
+            c.inicializeChromosome();
             if(!initialFenotypes.containsKey(c.getFitness())){
                 initialFenotypes.put(c.getFitness(), 1);
-            }
-            else{
-                while(initialFenotypes.get(c.getFitness())>repeatedChromosomes){
-                    c.inicializeChromosome();
-                    if(!initialFenotypes.containsKey(c.getFitness())){
-                        initialFenotypes.put(c.getFitness(), 1);
+                for(int j=0; j<repeatedChromosomes; j++){
+                    if(j*chromosomePermutations < this.populationSize){
+                        population.add(j*chromosomePermutations, c.copy());
                     }
                 }
-                initialFenotypes.put(c.getFitness(), initialFenotypes.get(c.getFitness())+1);
             }
-            population.add(c);
-        }
+            else{
+                while(initialFenotypes.containsKey(c.getFitness())){
+                    c = null;
+                    c = createConcreteChromosome();
+                    c.inicializeChromosome();
+                }
+                initialFenotypes.put(c.getFitness(), 1);
+                for(int j=0; j<repeatedChromosomes; j++){
+                    if(j*repeatedChromosomes < this.populationSize){
+                        population.add(j*repeatedChromosomes, c.copy());
+                    }
+                }
+            }
+        }*/
  
         if (elitism) {
             this.elite.initializeMax(this.maximizar);

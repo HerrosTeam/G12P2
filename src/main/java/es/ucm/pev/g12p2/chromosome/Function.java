@@ -61,7 +61,7 @@ public class Function extends Chromosome{
         int sum=0;
         for(int i=0; i<numBuildings; i++){
             for(int j=0; j<numBuildings; j++){
-                sum += this.flowData[i][j] * this.distanceData[x.get(i)-1][x.get(j)-1];
+                sum += this.flowData[i][j] * this.distanceData[x.get(i)][x.get(j)];
             }
         }
       return sum;

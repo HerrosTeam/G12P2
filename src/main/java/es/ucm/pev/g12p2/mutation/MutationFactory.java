@@ -5,16 +5,6 @@
  */
 package es.ucm.pev.g12p2.mutation;
 
-import es.ucm.pev.g12p2.crossover.CX;
-import es.ucm.pev.g12p2.crossover.Crossover;
-import es.ucm.pev.g12p2.crossover.ERX;
-import es.ucm.pev.g12p2.crossover.OX;
-import es.ucm.pev.g12p2.crossover.OXPriorityOrder;
-import es.ucm.pev.g12p2.crossover.OrdinalCodification;
-import es.ucm.pev.g12p2.crossover.PMX;
-import es.ucm.pev.g12p2.crossover.SinglePoint;
-import es.ucm.pev.g12p2.crossover.TwoPoint;
-
 /**
  *
  * @author Herros Team
@@ -25,8 +15,6 @@ public class MutationFactory {
             int numSelIns) {
         
         switch (mutationAlgorithm) {
-            case "Básica":
-                return new BasicMutation(probabilityOfMutation,populationSize);
             case "Inserción":
                 return new InsertionMutation(probabilityOfMutation,populationSize, numSelIns);
             case "Intercambio":
@@ -35,8 +23,10 @@ public class MutationFactory {
                 return new InversionMutation(probabilityOfMutation,populationSize);
             case "Heurística":
                 return new HeuristicMutation(probabilityOfMutation,populationSize, numSelIns, false);
+            case "Intercambio Multiple":
+                return new MultipleSwapMutation(probabilityOfMutation,populationSize);
             default:
-                return new BasicMutation(probabilityOfMutation,populationSize);
+                return new SwapMutation(probabilityOfMutation,populationSize);
         }
     }
 }

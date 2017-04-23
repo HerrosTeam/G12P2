@@ -29,9 +29,9 @@ public class Elite {
         this.quickSort(0, this.currentPopulation.size()-1); //ordered from lowest to highest fitness
         for(int i=0; i<this.eliteSize; i++){
             if(maximizar){
-                elite.add(i, this.currentPopulation.get(this.currentPopulation.size()-1-i));
+                elite.add(i, this.currentPopulation.get(this.currentPopulation.size()-1-i).copy());
             }else{
-                elite.add(i, this.currentPopulation.get(i));
+                elite.add(i, this.currentPopulation.get(i).copy());
             }
         }
         return elite;
@@ -67,9 +67,9 @@ public class Elite {
         this.quickSort(0, this.currentPopulation.size()-1); //ordered from lowest to highest fitness
         for(int i=0; i<this.eliteSize; i++){
             if(maximizar){
-                this.currentPopulation.set(i,eliteChromosomes.get(i));
+                this.currentPopulation.set(i,eliteChromosomes.get(i).copy());
             }else{
-                this.currentPopulation.set(this.currentPopulation.size()-1-i, eliteChromosomes.get(i));
+                this.currentPopulation.set(this.currentPopulation.size()-1-i, eliteChromosomes.get(i).copy());
             }
         }
         return this.currentPopulation;
