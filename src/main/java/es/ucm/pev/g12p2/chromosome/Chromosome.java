@@ -52,7 +52,7 @@ public abstract class Chromosome {
     }
     
     public void addGene(int pos, int allele){
-        Gene gene = new IntegerGene(1,1,9);
+        Gene gene = new IntegerGene(1,xmin,xmax);
         gene.initializeGene(allele);
         this.genes.add(pos, gene);
     }

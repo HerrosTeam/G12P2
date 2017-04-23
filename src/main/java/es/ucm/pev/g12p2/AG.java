@@ -7,6 +7,7 @@ package es.ucm.pev.g12p2;
 
 import es.ucm.pev.g12p2.chromosome.Chromosome;
 import es.ucm.pev.g12p2.chromosome.Function;
+import es.ucm.pev.g12p2.chromosome.gene.Gene;
 import es.ucm.pev.g12p2.crossover.Crossover;
 import es.ucm.pev.g12p2.elite.Elite;
 import es.ucm.pev.g12p2.mutation.Mutation;
@@ -32,6 +33,7 @@ public class AG {
 
     private Chromosome bestGeneration;
     private Chromosome bestChromosome;
+    private double worstFitness;
     private int bestPosition;
 
     private double probCrossover;
@@ -151,7 +153,8 @@ public class AG {
             currentGeneration++;
         }
         
-        AGView viewInfo = new AGView(this.generationAverage, this.generationBest, this.absoluteBest);
+        AGView viewInfo = new AGView(this.generationAverage, this.generationBest, this.absoluteBest,
+            this.getAbsoluteBestIndividual(), this.getAbsoluteWorst());
         
         return viewInfo;
     }
@@ -204,8 +207,10 @@ public class AG {
     
 
     public void evaluate() {
-        if(this.currentGeneration==0)
+        if(this.currentGeneration==0){
             this.bestChromosome = this.population.get(0);
+            this.worstFitness = this.population.get(0).getFitness();
+        }
         this.bestGeneration = this.population.get(0).copy();
         double sumFitness = 0;
         double fmin = bestGeneration.getFitness();
@@ -223,6 +228,10 @@ public class AG {
                 if (currentFitness < this.bestGeneration.getFitness()) {
                     bestGeneration = this.population.get(i).copy();
                 }
+                if (currentFitness > this.worstFitness) {
+                    this.worstFitness = currentFitness;
+                }
+                
             }
 
             if (currentFitness < fmin) {
@@ -241,6 +250,7 @@ public class AG {
             if (bestGeneration.getFitness() < this.bestChromosome.getFitness()) {
                 bestChromosome = bestGeneration.copy();
             }
+            
         }
         
         this.average = sumFitness / this.populationSize;
@@ -331,6 +341,18 @@ public class AG {
     
     public double getAbsoluteBest(){
         return this.bestChromosome.getFitness();
+    }
+    
+    public double getAbsoluteWorst(){
+        return this.worstFitness;
+    }
+    
+    public String getAbsoluteBestIndividual(){
+        StringBuilder individual = new StringBuilder();
+        this.bestChromosome.getGenes().stream().forEach((g) -> {
+            individual.append(g.getAllele(0).toString());
+        });
+        return individual.toString();
     }
     
     public double getGenerationBest(){

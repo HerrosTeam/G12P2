@@ -55,7 +55,11 @@ public class Function extends Chromosome{
                 this.flowData = distflow.getFlowDatos30();
                 break;
         }
-    } 
+    }
+
+    public String getData() {
+        return data;
+    }
     
     public double function(List<Integer> x){
         int sum=0;
@@ -66,6 +70,10 @@ public class Function extends Chromosome{
             }
         }
       return sum;
+    }
+    
+    public int[][] getDistanceData(){
+        return this.distanceData;
     }
     
     @Override

@@ -27,12 +27,20 @@ public abstract class Gene {
         return geneLength;
     }
     
+    public int getSize(){
+        return allele.size();
+    }
+    
     public Object getAllele(int pos){
         return allele.get(pos);
     }
     
     public void setAllele(int pos, Object allele){
         this.allele.set(pos, allele);
+    }
+    
+    public void addAllele(int pos, Object allele){
+        this.allele.add(pos, allele);
     }
     
     public List<Object> getAlleleList(){

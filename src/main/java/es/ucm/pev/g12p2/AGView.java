@@ -16,12 +16,17 @@ public class AGView {
     double[] generationAverage;
     double[] generationBest;
     double[] absoluteBest;
+    String bestIndividual;
+    double absoluteWorst;
 
-    public AGView(double[] generationAverage, double[] generationBest, double[] absoluteBest) {
+    public AGView(double[] generationAverage, double[] generationBest, double[] absoluteBest, String absoluteBestIndividual, double absoluteWorst) {
         this.generationAverage = generationAverage;
         this.generationBest = generationBest;
         this.absoluteBest = absoluteBest;
+        this.bestIndividual = absoluteBestIndividual;
+        this.absoluteWorst = absoluteWorst;
     }
+
 
     public double[] getGenerationAverage() {
         return generationAverage;
