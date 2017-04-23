@@ -6,27 +6,25 @@
 package es.ucm.pev.g12p2.mutation;
 
 import es.ucm.pev.g12p2.chromosome.Chromosome;
-import es.ucm.pev.g12p2.chromosome.Function;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import static javafx.application.Application.launch;
 
 /**
  *
- * @author PoVALE Team
+ * @author Herros Team
  */
 public class InversionMutation extends Mutation{
 
     private int point1, point2;
     private double probabilityOfInversion;
+    
     public InversionMutation(double probabilityOfMutation, int populationSize) {
         super(probabilityOfMutation, populationSize);
     }
     
-    public InversionMutation(double probabilityOfMutation, int populationSize, int point1, 
-            int point2, double probabilityOfInversion) {
-        super(probabilityOfMutation, populationSize);
+    public InversionMutation(double probabilityOfMutation, int point1, 
+            int point2) {
+        super(probabilityOfMutation, 1);
         this.point1 = point1;
         this.point2 = point2;
         this.probabilityOfInversion = probabilityOfInversion;
@@ -106,6 +104,25 @@ public class InversionMutation extends Mutation{
             c.getGene(this.point2-cont).setAllele(0, c.getGene(i).getAllele(0));
             c.getGene(i).setAllele(0, auxAllele);
         }
+        return c.copy();
+    } 
+        
+    public Chromosome specialInverse(Chromosome c){
+        int aux;
+        if(this.point1 > this.point2){
+            aux = this.point2;
+            this.point2 = this.point1;
+            this.point1 = aux;
+        }
+        int half = (this.point2 + this.point2) / 2;
+        for(int i=this.point1, cont=0; i<=half; i++, cont++){
+            int auxAllele = (int)c.getGene(this.point2-cont).getAllele(0);
+            c.getGene(this.point2-cont).setAllele(0, c.getGene(i).getAllele(0));
+            c.getGene(i).setAllele(0, auxAllele);
+        }
+        c.fenotype();
+        c.evaluate();
+        
         return c.copy();
     } 
 

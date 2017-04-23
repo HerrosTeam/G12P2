@@ -83,6 +83,13 @@ public abstract class Chromosome {
         
         this.evaluate();
     }
+    
+    public void inicializeChromosome(List<Integer> locations){
+        for(int i=0; i<chromosomeLength; i++){
+            this.genes.get(i).initializeGene(locations.get(i));
+        }
+        this.evaluate();
+    }
 
     public double getScoreAccumulated() {
         return this.scoreAccumulated;

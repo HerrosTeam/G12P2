@@ -10,8 +10,10 @@ import es.ucm.pev.g12p2.chromosome.Function;
 import es.ucm.pev.g12p2.chromosome.gene.Gene;
 import es.ucm.pev.g12p2.crossover.Crossover;
 import es.ucm.pev.g12p2.elite.Elite;
+import es.ucm.pev.g12p2.mutation.InversionMutation;
 import es.ucm.pev.g12p2.mutation.Mutation;
 import es.ucm.pev.g12p2.selection.Selection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -66,6 +68,7 @@ public class AG {
     private double[] generationBest;
     private double[] absoluteBest;
     
+    private InversionMutation specialInversion;
     private double inversionPercentage;
     private int inversionInitialP;
     private int inversionFinalP;
@@ -116,6 +119,7 @@ public class AG {
         this.inversionPercentage = inversionPercentage;
         this.inversionInitialP = inversionInitialP;
         this.inversionFinalP = inversionFinalP;
+        this.specialInversion = new InversionMutation(this.inversionPercentage, this.inversionInitialP, this.inversionFinalP);
     }
 
     public AGView executeAlgorithm() {
@@ -124,9 +128,6 @@ public class AG {
         this.evaluate();
 
         while (currentGeneration != maxGenerations) {
-           
-            System.out.println("Generacion:"+currentGeneration );
-
            
             if (elitism) {
                 this.eliteChromosomes.addAll(0, this.elite.getElite(population));
@@ -138,6 +139,7 @@ public class AG {
             
             this.mutate();
             
+            this.specialInversion();
             
             if (elitism) {
                 this.population =this.elite.includeEliteRepWorst(this.population, this.eliteChromosomes);
@@ -162,47 +164,47 @@ public class AG {
 
     private void initialize() {
         this.population = new LinkedList();
-        Map <Double, Integer> initialFenotypes = new HashMap();
         int chromosomePermutations=1;
+        List<Integer> basicAllelesForm = new ArrayList();
         for(int i=1; i<=this.chromosomeLength; i++){
+            basicAllelesForm.add(i);
             chromosomePermutations*=i;
         }
+        List<List<Integer>> allPermutations = getAllPermutations(basicAllelesForm);
         int repeatedChromosomes = this.populationSize / chromosomePermutations + 1;
-        for (int i = 0; i < this.populationSize; i++) {
-            Chromosome c = createConcreteChromosome();
-            c.inicializeChromosome();
-            population.add(c.copy());
-        }
         
-       /* for (int i = 0; i < chromosomePermutations && population.size() < this.populationSize; i++) {
+        for(int i=0; i<allPermutations.size() && this.populationSize > population.size(); i++){
+            //añadir cromosoma permutado a la poblacion
             Chromosome c = createConcreteChromosome();
-            c.inicializeChromosome();
-            if(!initialFenotypes.containsKey(c.getFitness())){
-                initialFenotypes.put(c.getFitness(), 1);
-                for(int j=0; j<repeatedChromosomes; j++){
-                    if(j*chromosomePermutations < this.populationSize){
-                        population.add(j*chromosomePermutations, c.copy());
-                    }
-                }
+            c.inicializeChromosome(allPermutations.get(i));
+            //falta copiarlo n veces posibles
+            for(int j=0; j<repeatedChromosomes && i+j*chromosomePermutations <this.populationSize; j++){
+                population.add(c.copy());
             }
-            else{
-                while(initialFenotypes.containsKey(c.getFitness())){
-                    c = null;
-                    c = createConcreteChromosome();
-                    c.inicializeChromosome();
-                }
-                initialFenotypes.put(c.getFitness(), 1);
-                for(int j=0; j<repeatedChromosomes; j++){
-                    if(j*repeatedChromosomes < this.populationSize){
-                        population.add(j*repeatedChromosomes, c.copy());
-                    }
-                }
-            }
-        }*/
- 
+        }
+		
         if (elitism) {
             this.elite.initializeMax(this.maximizar);
         }
+    }
+    
+    public List<List<Integer>> getAllPermutations(List<Integer> original) {
+        if (original.isEmpty()) { 
+          List<List<Integer>> result = new ArrayList<>();
+          result.add(new ArrayList<>());
+          return result;
+        }
+        Integer firstElement = original.remove(0);
+        List<List<Integer>> permutationsList = new ArrayList<>();
+        List<List<Integer>> permutations = getAllPermutations(original);
+        for (List<Integer> smallerPermutated : permutations) {
+          for (int index=0; index <= smallerPermutated.size(); index++) {
+            List<Integer> temp = new ArrayList<>(smallerPermutated);
+            temp.add(index, firstElement);
+            permutationsList.add(temp);
+          }
+        }
+        return permutationsList;
     }
     
 
@@ -249,8 +251,7 @@ public class AG {
         } else if (!maximizar) {
             if (bestGeneration.getFitness() < this.bestChromosome.getFitness()) {
                 bestChromosome = bestGeneration.copy();
-            }
-            
+            }   
         }
         
         this.average = sumFitness / this.populationSize;
@@ -291,6 +292,21 @@ public class AG {
             accumulatedScore += score;
             this.population.get(i).setScore(score);
             this.population.get(i).setAccumulatedScore(accumulatedScore);
+        }
+    }
+    
+    private void specialInversion(){
+        for(int i=0; i<this.populationSize; i++){
+            Chromosome cInversed = this.specialInversion.specialInverse(this.population.get(i));
+            if (maximizar) {
+                if (cInversed.getFitness() > this.population.get(i).getFitness()) {
+                    this.population.set(i, cInversed.copy());
+                }
+            } else if (!maximizar) {
+                if (cInversed.getFitness() < this.population.get(i).getFitness()) {
+                    this.population.set(i, cInversed.copy());
+                }
+            }
         }
     }
 
